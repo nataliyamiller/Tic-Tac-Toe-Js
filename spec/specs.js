@@ -23,9 +23,15 @@ describe('setMark', function() {
 });
 
 describe('Board', function() {
-  it("returns board as an array table squares", function() {
+  it("returns board as an array of numbered table squares", function() {
     var testBoard = new Board();
     expect(testBoard.board).to.eql([1, 2, 3, 4, 5, 6, 7, 8, 9]);
     expect(testBoard.board.length).to.equal(9);
+  });
+
+  it("returns all tables squares being empty", function() {
+    var testBoard = new Board();
+    expect(testBoard.clearSquares()[0]).to.equal("");
+    expect(testBoard.board).to.eql(["", "", "", "", "", "", "", "", ""]);
   });
 });

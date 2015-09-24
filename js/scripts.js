@@ -29,3 +29,11 @@ function Board() {
   }
   this.board = board;
 }
+
+Board.prototype.clearSquares = function() {
+  var length = this.board.length;
+  for (var i = 0; i < length; i ++) {
+      this.board[i] = "";
+  }
+  return this.board;
+}
