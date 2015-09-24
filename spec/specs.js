@@ -28,15 +28,20 @@ describe('Board', function() {
     expect(testBoard.board).to.eql(["", "", "", "", "", "", "", "", ""]);
   });
 
-  // it("returns true is square is empty or false if sqare has already been marked", function() {
-  //   var testBoard = new Board();
-  //   expect(testBoard.isSquareEmpty(2)).to.equal(true);
-  // });
+  it("returns a square with the given id", function() {
+    var testBoard = new Board();
+    expect(testBoard.getSquare(1)).to.equal("");
+  });
 
   it("markes square with player's mark if square is empty", function() {
     var testBoard = new Board();
     testBoard.markSquare(2, "X");
     expect(testBoard.board[2]).to.equal("X");
     expect(testBoard.board[1]).to.equal("");
+  });
+
+  it("returns true if three squares are marked with same marker", function() {
+    var testBoard = new Board();
+    expect(testBoard.checkSquareCombination(1, 2, 3)).to.equal(true);
   });
 });
