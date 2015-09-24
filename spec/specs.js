@@ -45,7 +45,7 @@ describe('Board', function() {
     expect(testBoard.checkSquareCombo(1, 2, 3, "")).to.equal(true);
   });
 
-  it("returns true if player won the game", function(playerMark) {
+  it("returns true if player won the game", function() {
     var testBoard = new Board();
     testBoard.markSquare(0, "X");
     testBoard.markSquare(1, "X");
@@ -53,5 +53,4 @@ describe('Board', function() {
     testBoard.checkSquareCombo(0, 1, 2, "X");
     expect(testBoard.isWinner("X")).to.equal(true);
   });
-
 });

@@ -3,7 +3,7 @@ function Player(mark) {
 }
 
 Player.prototype.startMessage = function() {
-  return this.mark + " starts the game";
+  return '"' + this.mark + '" starts the game';
 }
 
 Player.prototype.switchTurn = function() {
@@ -34,11 +34,13 @@ var setMark = function() {
 }
 
 function Board() {
+  var player = new Player(setMark());
   var board = [];
   for (var i = 0; i < 9; i++) {
     board.push("");
   }
   this.board = board;
+  this.player = player;
 }
 
 Board.prototype.getSquare = function(squareId) {
@@ -46,8 +48,11 @@ Board.prototype.getSquare = function(squareId) {
 }
 
 Board.prototype.markSquare = function(squareId, playerMark) {
-  if (this.getSquare([squareId]) == "") {
+  if (this.isWinner() == true) {
+    return "This game already ended";
+  } else if (this.getSquare([squareId]) == "") {
    this.board[squareId] = playerMark;
+   this.player.switchTurn();
   } else {
     return "You can't move to this square, it has already been played";
   }
@@ -63,19 +68,6 @@ Board.prototype.checkSquareCombo = function(id1, id2, id3, playerMark) {
   return squareCombo;
 }
 
-// Board.prototype.winningCombo = function() {
-//   var winningCombo = [];
-//   winningCombo.push([0, 1, 2]);
-//   winningCombo.push([3, 4, 5]);
-//   winningCombo.push([6, 7, 8]);
-//   winningCombo.push([0, 3, 6]);
-//   winningCombo.push([1, 4, 7]);
-//   winningCombo.push([2, 5, 8]);
-//   winningCombo.push([0, 4, 8]);
-//   winningCombo.push([2, 4, 6]);
-//   return winningCombo;
-// }
-
 Board.prototype.isWinner = function(playerMark) {
   var winner = false;
   if (this.checkSquareCombo(0, 1, 2, playerMark) ||
@@ -90,3 +82,13 @@ Board.prototype.isWinner = function(playerMark) {
       }
       return winner;
 }
+
+$(document).ready(function() {
+  var mark = setMark();
+  var player = new Player(mark);
+  var message = player.startMessage();
+  $("div#starting-message").append(message).show();
+
+
+
+})
