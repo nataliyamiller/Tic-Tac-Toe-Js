@@ -4,3 +4,10 @@ describe('Player', function() {
       expect(testPlayer.mark).to.equal("X");
    });
 });
+
+
+describe('startMessage', function() {
+  it("returns a starting message whowing who's turn is first, 'X' or 'Y'", function() {
+    expect(startMessage("X")).to.be.a('string');
+  })
+})
