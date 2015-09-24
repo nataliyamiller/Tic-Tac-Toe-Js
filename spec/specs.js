@@ -42,6 +42,16 @@ describe('Board', function() {
 
   it("returns true if three squares are marked with same marker", function() {
     var testBoard = new Board();
-    expect(testBoard.checkSquareCombination(1, 2, 3)).to.equal(true);
+    expect(testBoard.checkSquareCombo(1, 2, 3, "")).to.equal(true);
   });
+
+  it("returns true if player won the game", function(playerMark) {
+    var testBoard = new Board();
+    testBoard.markSquare(0, "X");
+    testBoard.markSquare(1, "X");
+    testBoard.markSquare(2, "X");
+    testBoard.checkSquareCombo(0, 1, 2, "X");
+    expect(testBoard.isWinner("X")).to.equal(true);
+  });
+
 });
