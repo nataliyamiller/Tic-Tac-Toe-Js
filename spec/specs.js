@@ -8,6 +8,12 @@ describe('Player', function() {
 
 describe('startMessage', function() {
   it("returns a starting message whowing who's turn is first, 'X' or 'Y'", function() {
-    expect(startMessage("X")).to.be.a('string');
-  })
-})
+    expect(startMessage("X")).to.equal("X starts the game");
+  });
+});
+
+describe('setMark', function() {
+  it("returns a randomly selected 'X' or 'Y' mark", function() {
+    expect(setMark()).to.be.a('string');
+  });
+});
