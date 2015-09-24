@@ -89,6 +89,4 @@ $(document).ready(function() {
   var message = player.startMessage();
   $("div#starting-message").append(message).show();
 
-
-
 })
