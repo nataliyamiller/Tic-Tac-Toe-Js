@@ -6,7 +6,7 @@ describe('Player', function() {
 
    it("returns a starting message if it is 'X' or 'O' to start with", function() {
      var testPlayer = new Player("X");
-     expect(testPlayer.startMessage()).to.equal("X starts the game");
+     expect(testPlayer.startMessage()).to.equal('"X" starts the game');
    });
 
    it("switches turns for the player", function() {
