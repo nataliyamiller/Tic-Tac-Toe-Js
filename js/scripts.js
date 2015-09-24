@@ -24,16 +24,19 @@ var setMark = function() {
 
 function Board() {
   var board = [];
-  for (var i = 1; i < 10; i++) {
-    board.push(i);
+  for(var x = 0; x < 3; x++) {
+    board.push([]);
+    for(var y = 0; y < 3; y++){
+      board[x].push("");
+    }
   }
   this.board = board;
-}
+};
 
-Board.prototype.clearSquares = function() {
-  var length = this.board.length;
-  for (var i = 0; i < length; i ++) {
-      this.board[i] = "";
+Board.prototype.isSquareEmpty = function(square) {
+  if (square === "") {
+    return true;
+  } else {
+    return false;
   }
-  return this.board;
 }

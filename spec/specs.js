@@ -23,15 +23,13 @@ describe('setMark', function() {
 });
 
 describe('Board', function() {
-  it("returns board as an array of numbered table squares", function() {
+  it("returns an array of empty squares", function() {
     var testBoard = new Board();
-    expect(testBoard.board).to.eql([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-    expect(testBoard.board.length).to.equal(9);
+    expect(testBoard.board).to.eql([["", "", ""], ["", "", ""], ["", "", ""]]);
   });
-
-  it("returns all tables squares being empty", function() {
+  it("returns true is square is empty or false if sqare has already been marked", function() {
     var testBoard = new Board();
-    expect(testBoard.clearSquares()[0]).to.equal("");
-    expect(testBoard.board).to.eql(["", "", "", "", "", "", "", "", ""]);
-  });
+    var square = testBoard.board[0][0];
+    expect(testBoard.isSquareEmpty(square)).to.equal(true);
+  })
 });
