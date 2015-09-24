@@ -25,11 +25,18 @@ describe('setMark', function() {
 describe('Board', function() {
   it("returns an array of empty squares", function() {
     var testBoard = new Board();
-    expect(testBoard.board).to.eql([["", "", ""], ["", "", ""], ["", "", ""]]);
+    expect(testBoard.board).to.eql(["", "", "", "", "", "", "", "", ""]);
   });
-  it("returns true is square is empty or false if sqare has already been marked", function() {
+
+  // it("returns true is square is empty or false if sqare has already been marked", function() {
+  //   var testBoard = new Board();
+  //   expect(testBoard.isSquareEmpty(2)).to.equal(true);
+  // });
+
+  it("markes square with player's mark if square is empty", function() {
     var testBoard = new Board();
-    var square = testBoard.board[0][0];
-    expect(testBoard.isSquareEmpty(square)).to.equal(true);
-  })
+    testBoard.markSquare(2, "X");
+    expect(testBoard.board[2]).to.equal("X");
+    expect(testBoard.board[1]).to.equal("");
+  });
 });
