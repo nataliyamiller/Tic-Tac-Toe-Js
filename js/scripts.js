@@ -84,9 +84,14 @@ Board.prototype.isWinner = function(playerMark) {
 }
 
 $(document).ready(function() {
-  var mark = setMark();
-  var player = new Player(mark);
-  var message = player.startMessage();
-  $("div#starting-message").append(message).show();
 
-})
+
+  $("#play").click(function(event) {
+    event.preventDefault();
+    $("div#starting-message").empty();
+    var mark = setMark();
+    var player = new Player(mark);
+    var message = player.startMessage();
+    $("div#starting-message").append(message).show();
+  });
+});
