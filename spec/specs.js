@@ -3,13 +3,11 @@ describe('Player', function() {
       var testPlayer = new Player("X");
       expect(testPlayer.mark).to.equal("X");
    });
-});
 
-
-describe('startMessage', function() {
-  it("returns a starting message whowing who's turn is first, 'X' or 'Y'", function() {
-    expect(startMessage("X")).to.equal("X starts the game");
-  });
+   it("returns a starting message if it is 'X' or 'Y' to start with", function() {
+     var testPlayer = new Player("X");
+     expect(testPlayer.startMessage()).to.equal("X starts the game");
+   });
 });
 
 describe('setMark', function() {
@@ -17,3 +15,11 @@ describe('setMark', function() {
     expect(setMark()).to.be.a('string');
   });
 });
+
+// describe('getTurn', function() {
+//   it("switches the player's turn", function() {
+//   var testPlayer = new Player("X");
+//   var mark =
+//   expect(getTurn()).to.equal("Y");
+//   });
+// });

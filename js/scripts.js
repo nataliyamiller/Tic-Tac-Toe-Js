@@ -2,10 +2,9 @@ function Player(mark) {
   this.mark = mark;
 }
 
-var startMessage = function(mark) {
-  return mark + " starts the game";
+Player.prototype.startMessage = function() {
+  return this.mark + " starts the game";
 }
-
 
 var setMark = function() {
   if (Math.random() < 0.5) {
@@ -14,3 +13,7 @@ var setMark = function() {
     return "Y";
   }
 }
+
+// var getTurn = function() {
+//
+// }
