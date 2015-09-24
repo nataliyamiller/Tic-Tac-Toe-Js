@@ -21,3 +21,11 @@ describe('setMark', function() {
     expect(setMark()).to.be.a('string');
   });
 });
+
+describe('Board', function() {
+  it("returns board as an array table squares", function() {
+    var testBoard = new Board();
+    expect(testBoard.board).to.eql([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    expect(testBoard.board.length).to.equal(9);
+  });
+});

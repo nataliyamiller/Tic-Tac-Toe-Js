@@ -21,3 +21,11 @@ var setMark = function() {
     return "O";
   }
 }
+
+function Board() {
+  var board = [];
+  for (var i = 1; i < 10; i++) {
+    board.push(i);
+  }
+  this.board = board;
+}
