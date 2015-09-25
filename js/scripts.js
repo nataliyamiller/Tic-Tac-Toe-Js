@@ -45,6 +45,7 @@ function Board() {
   }
   this.board = board;
   this.player = player;
+  this.winner = null;
 }
 
 
@@ -53,12 +54,12 @@ Board.prototype.getSquare = function(squareId) {
 }
 
 Board.prototype.markSquare = function(squareId, playerMark) {
- if (this.isMarked(squareId) === true) {
+ if (this.notMarked(squareId) === true) {
    return this.board[squareId] = playerMark;
  }
 }
 
-Board.prototype.isMarked = function(squareId) {
+Board.prototype.notMarked = function(squareId) {
   if (this.getSquare([squareId]) == "") {
     return true;
   } else {
@@ -66,32 +67,48 @@ Board.prototype.isMarked = function(squareId) {
   }
 }
 
-Board.prototype.checkSquareCombo1 = function(playerMark) {
+
+Board.prototype.checkSquareCombo1 = function() {
   var result = false;
   if (this.getSquare(0) == this.getSquare(1) && this.getSquare(2) == this.getSquare(0) && this.getSquare(1) == this.getSquare(2)) {
-      if (this.getSquare(0) == playerMark) {
         result = true;
-      }
   }
   return result;
 }
 
-// Board.prototype.gameWon = function(playerMark) {
-//   if (checkSquareCombo1(playerMark) == true) {
-//
-//   }
-// }
+Board.prototype.checkIfComboOneMarked = function() {
+  var result = false;
+  if (this.notMarked(0) === false || this.notMarked(1) === false || this.notMarked(2) === false) {
+    result = true;
+  }
+  return result;
+}
+
+Board.prototype.wonSquareCombo1 = function(playerMark) {
+  if (this.getSquare(0) == playerMark) {
+    this.winner = playerMark;
+    return true;
+  }
+}
+
+Board.prototype.gameWon = function() {
+  var result = false;
+  if (this.checkIfComboOneMarked() === true && this.checkSquareCombo1() === true) {
+      result = true;
+  }
+  return result;
+}
 
 Board.prototype.isWinner = function(playerMark) {
   var winner = false;
-  if (this.checkSquareCombo(0, 1, 2, playerMark) ||
-      this.checkSquareCombo(3, 4, 5, playerMark) ||
-      this.checkSquareCombo(6, 7, 8, playerMark) ||
-      this.checkSquareCombo(0, 3, 6, playerMark) ||
-      this.checkSquareCombo(1, 4, 7, playerMark) ||
-      this.checkSquareCombo(2, 5, 8, playerMark) ||
-      this.checkSquareCombo(0, 4, 8, playerMark) ||
-      this.checkSquareCombo(2, 4, 6, playerMark)) {
+  if (this.wonSquareCombo1(playerMark)) {
+      // this.checkSquareCombo(3, 4, 5, playerMark) ||
+      // this.checkSquareCombo(6, 7, 8, playerMark) ||
+      // this.checkSquareCombo(0, 3, 6, playerMark) ||
+      // this.checkSquareCombo(1, 4, 7, playerMark) ||
+      // this.checkSquareCombo(2, 5, 8, playerMark) ||
+      // this.checkSquareCombo(0, 4, 8, playerMark) ||
+      // this.checkSquareCombo(2, 4, 6, playerMark)) {
         winner = true;
       }
       return winner;
@@ -112,94 +129,145 @@ $(document).ready(function() {
 
 
     $("td#0").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      }
+
       var mark = player.getMark();
 
-      if (board.checkSquareCombo1(mark) != true) {
+      if (board.notMarked(0) === true && board.gameWon() === false) {
           $("td#0").text(board.markSquare(0, mark));
-        } else {
-          alert("This is not an empty square");
+          board.markSquare(0, mark);
+          if(board.wonSquareCombo1(mark) === true && board.gameWon() === true) {
+            alert(mark + " won the game");
+          }
         }
+        // else {
+        //   alert("This square is already taken");
+        // }
+
         player.switchTurn();
   });
 
     $("td#1").on("click", function() {
+
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
+
       var mark = player.getMark();
-      if(board.isMarked(1) === true) {
-      $("td#1").text(board.markSquare(1, mark));
-    } else {
-      alert("This is not an empty square");
-    }
+
+      if(board.notMarked(1) === true && board.gameWon() === false) {
+        $("td#1").text(board.markSquare(1, mark));
+        if(board.wonSquareCombo1(mark) === true && board.gameWon() === true) {
+          alert(mark + " won the game");
+        }
+      }
+
+      // else if (board.notMarked(1) === false && board.gameWon() === false) {
+      //     alert("This square is already taken");
+      // }
     player.switchTurn();
+  }
     });
 
     $("td#2").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
       var mark = player.getMark();
-      if(board.isMarked(2) === true) {
-      $("td#2").text(board.markSquare(2, mark));
-    } else {
-      alert("This is not an empty square");
-    }
+      if(board.notMarked(2) === true && board.gameWon() === false) {
+        $("td#2").text(board.markSquare(2, mark));
+        if(board.wonSquareCombo1(mark) === true && board.gameWon() === true) {
+          alert(mark + " won the game");
+        }
+      }
     player.switchTurn();
+  }
     });
 
     $("td#3").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
       var mark = player.getMark();
-      if(board.isMarked(3) === true) {
+      if(board.notMarked(3) === true) {
       $("td#3").text(board.markSquare(3, mark));
     } else {
       alert("This is not an empty square");
     }
     player.switchTurn();
+  }
     });
 
     $("td#4").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
       var mark = player.getMark();
-      if(board.isMarked(4) === true) {
+      if(board.notMarked(4) === true) {
       $("td#4").text(board.markSquare(4, mark));
     } else {
       alert("This is not an empty square");
     }
     player.switchTurn();
+  }
     });
 
     $("td#5").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
       var mark = player.getMark();
-      if(board.isMarked(5) === true) {
+      if(board.notMarked(5) === true) {
       $("td#5").text(board.markSquare(5, mark));
     } else {
       alert("This is not an empty square");
     }
     player.switchTurn();
+  }
     });
 
     $("td#6").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
       var mark = player.getMark();
-      if(board.isMarked(6) === true) {
+      if(board.notMarked(6) === true) {
       $("td#6").text(board.markSquare(6, mark));
     } else {
       alert("This is not an empty square");
     }
     player.switchTurn();
+  }
     });
 
     $("td#7").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
       var mark = player.getMark();
-      if(board.isMarked(7) === true) {
+      if(board.notMarked(7) === true) {
       $("td#7").text(board.markSquare(7, mark));
     } else {
       alert("This is not an empty square");
     }
     player.switchTurn();
+  }
     });
 
     $("td#8").on("click", function() {
+      if (board.gameWon() === true) {
+        alert(board.winner + " has already won the game. Start a new game!");
+      } else {
       var mark = player.getMark();
-      if(board.isMarked(8) === true) {
+      if(board.notMarked(8) === true) {
       $("td#8").text(board.markSquare(8, mark));
     } else {
       alert("This is not an empty square");
     }
     player.switchTurn();
+  }
     });
 
   });
